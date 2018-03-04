@@ -32,6 +32,7 @@ namespace :seed do
       ['Utah Jazz', 1610612762],
       ['Washington Wizards', 1610612764]
     ]
+
     teams.each do |team|
       Team.find_or_create_by(nba_id: team[1], name: team[0])
     end
