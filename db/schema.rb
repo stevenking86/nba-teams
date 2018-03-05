@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20180304171449) do
     t.decimal  "w_pct"
     t.decimal  "min"
     t.decimal  "fgm"
+    t.decimal  "fg_pct"
     t.decimal  "fga"
     t.decimal  "fg3m"
     t.decimal  "fg3a"

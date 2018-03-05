@@ -10,6 +10,7 @@ class CreateStatSets < ActiveRecord::Migration[5.0]
       t.decimal :w_pct
       t.decimal :min
       t.decimal :fgm
+      t.decimal :fg_pct
       t.decimal :fga
       t.decimal :fg3m
       t.decimal :fg3a
