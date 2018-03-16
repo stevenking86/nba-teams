@@ -1,0 +1,104 @@
+@import "foundation_and_overrides";
+@import "variables-mixins";
+
+body {
+  margin: 0px 60px 60px 60px;
+}
+
+#headline {
+  background-color: $evening;
+  h1 {
+    color: $white;
+    margin: 0;
+    text-align: center;
+  }
+
+  img {
+    height: .75em;
+    color: white;
+    filter: invert(100%)
+  }
+}
+
+#teams-selection {
+  background-color: $white-smoke;
+  color: $evening;
+  padding: 20px ;
+  margin: 0;
+  display: block;
+
+  .chunked {
+    width: 18%;
+    display: inline-block;
+    vertical-align: top;
+
+    @media only screen and (max-width: 40em) {
+      width: 90%;
+    }
+
+    @media only screen and (min-width: 40.063em) and (max-width: 64em) {
+      width: 45%;
+    }
+
+    p {
+      margin: 0;
+      cursor: pointer;
+    }
+  }
+
+  .selected {
+    color: $sunset;
+  }
+}
+
+#team-section {
+  background-color: $white;
+
+  h2 {
+    color: $sunset;
+  }
+  p {
+    color: $evening;
+    margin-bottom: 0;
+  }
+}
+
+#team-players {
+  display: inline-block;
+  vertical-align: top;
+  p {
+    cursor: pointer;
+  }
+
+  .player-selected {
+    color: $sunset;
+  }
+}
+
+#player-section {
+  display: inline-block;
+  vertical-align: top;
+  p {
+    cursor: pointer;
+  }
+
+  .set-selected {
+    color: $sunset;
+  }
+}
+
+#stat-set-section {
+  display: inline-block;
+  vertical-align: top;
+
+  .stat-selected {
+    background-color: #6495ED;
+  }
+}
+
+.point {
+  cursor: pointer;
+  td {
+    color: $sunset;
+  }
+}

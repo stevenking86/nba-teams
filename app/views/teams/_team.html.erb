@@ -1,0 +1,178 @@
+<div>
+  <div>
+    <h2><%= team.name %></h2>
+  </div>
+
+  <div id="team-players" class="cell medium-2 large-2 small-10">
+    <% team.players.each do |team_player| %>
+      <% selected = team_player.id == player.try(:id) ? 'player-selected' : '' %>
+
+      <p
+        onClick="FetchPlayer(event)"
+        data-team-id="<%= team.id %>"
+        data-player-id="<%= team_player.id %>"
+        class="<%= selected %>">
+          <%= team_player.name %>
+      </p>
+    <% end %>
+  </div>
+
+  <div id='player-section' class="cell medium-2 large-2 small-10">
+    <% if player.present? %>
+      <%= render partial: 'player',
+        locals: {
+          player: player,
+          stat_set: @stat_set
+        }
+      %>
+    <% else %>
+      <h4> Select A Player </h4>
+    <% end %>
+  </div>
+
+  <div id='stat-set-section' class="cell medium-2 large-2 small-10">
+    <% if player.present? && stat_set.present? %>
+      <%= render partial: 'stat_set',
+        locals: {
+          player: player,
+          stat_set: stat_set
+        }
+      %>
+    <% end %>
+  </div>
+
+  <div id="click-a-stat"><h4>Click a Bold Stat</h4></div>
+  <div id="container" class="cell medium-5 large-5 small-10" style="height: 400px; margin: 0 auto; display: inline-block"></div>
+
+  <div id="dar-explain" class="cell medium-12 large-12 small-10">
+    <p>*Defensive Activity Rating: (stl + blocks) / pf</p>
+  </div>
+</div>
+
+  <script>
+    $('#click-a-stat').hide();
+    $('#dar-explain').hide();
+
+    function FetchPlayer(e) {
+      var teamId = e.target.dataset.teamId
+      var playerId = e.target.dataset.playerId
+      $.ajax({
+          url: `${document.URL}?click=1&team_id=${teamId}&player_id=${playerId}&load_player=1`,
+          cache: false,
+          success: function(html){
+            $('#player-section').replaceWith(
+              "<div id='player-section' class='cell medium-5 large-2'>" + html + "</div>"
+            )
+
+            $('#stat-set-section').replaceWith(
+              "<div id='stat-set-section' class='cell medium-5 large-2'>" +
+                "<h4>Choose a Stat Set</h4>"
+               + "</div>"
+            )
+
+            $('#click-a-stat').hide();
+            $('#dar-explain').hide();
+            $('#container').hide();
+            $('#click-a-stat').hide();
+          }
+      });
+
+      $(".player-selected").attr('class', '');
+      $(e.target).attr('class', 'player-selected');
+    }
+
+    function FetchStatSet(e) {
+      var teamId = e.target.dataset.teamId
+      var playerId = e.target.dataset.playerId
+      var statSetId = e.target.dataset.statSetId
+
+      $.ajax({
+          url: `${document.URL}?click=1&team_id=${teamId}&player_id=${playerId}&stat_set_id=${statSetId}&load_stat_set=1`,
+          cache: false,
+          success: function(html){
+            $('#stat-set-section').replaceWith(
+              "<div id='stat-set-section' class='cell medium-5 large-2'>" + html + "</div>"
+            )
+
+            $('#dar-explain').show();
+            $('#container').hide();
+          }
+      });
+
+      $(".set-selected").attr('class', '');
+      $('#click-a-stat').hide();
+      $(e.target).attr('class', 'set-selected');
+    }
+
+    function fetchChartData(e) {
+      var playerId = $("#player-holder").data("id")
+      var statSetId = $("#stat-set-holder").data("id")
+      var targetTr = e.target.closest("tr")
+      var statType = targetTr.dataset.statType
+
+      $.ajax({
+          url: `${document.URL}/chart-set?player_id=${playerId}&stat_set_id=${statSetId}&stat_type=${statType}`,
+          cache: false,
+          success: function(data){
+            $('#container').show();
+            renderChart(data)
+          }
+      });
+
+      $('tr').removeClass('stat-selected');
+      $(targetTr).attr('class', 'stat-selected');
+    }
+
+    function renderChart(data) {
+      Highcharts.chart('container', {
+          chart: {
+              type: 'bar'
+          },
+          title: {
+              text: data.stat_type + '/' + data.group_set
+          },
+          xAxis: {
+              // This will become stat set group values (ie 3 days rest)
+              categories: data.categories,
+              title: {
+                  text: null
+              }
+          },
+          yAxis: {
+              min: 0,
+              title: {
+                  text: '',
+                  align: 'high'
+              },
+              labels: {
+                  overflow: 'justify'
+              }
+          },
+          tooltip: {
+              valueSuffix: ' '
+          },
+          plotOptions: {
+              bar: {
+                  dataLabels: {
+                      enabled: true
+                  }
+              }
+          },
+          legend: {
+              layout: 'vertical',
+              align: 'right',
+              verticalAlign: 'top',
+              x: -40,
+              y: 80,
+              floating: true,
+              borderWidth: 1,
+              backgroundColor: ((Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'),
+              shadow: true
+          },
+          credits: {
+              enabled: false
+          },
+          series: data.series_data
+      });
+    }
+  </script>

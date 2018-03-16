@@ -1,0 +1,125 @@
+<div>
+  <h4><%= stat_set.group_value %></h4>
+
+  <table>
+    <tr>
+      <td>Height</td>
+      <td><%= player.height %></td>
+    </tr>
+    <tr>
+      <td>Weight</td>
+      <td><%= player.weight %></td>
+    </tr>
+    <tr class="point" data-stat-type="games" onClick="fetchChartData(event)">
+      <td>GP</td>
+      <td><%= stat_set.games_played %></td>
+    </tr>
+    <tr class="point" data-stat-type="games" onClick="fetchChartData(event)">
+      <td>Wins</td>
+      <td><%=stat_set.wins %></td>
+    </tr>
+    <tr class="point" data-stat-type="games" onClick="fetchChartData()">
+      <td>Losses</td>
+      <td><%= stat_set.losses%></td>
+    </tr>
+    <tr>
+      <td>Win%</td>
+      <td><%= stat_set.w_pct %></td>
+    </tr>
+    <tr>
+      <td>Min</td>
+      <td><%= stat_set.min %></td>
+    </tr>
+    <tr class="point" data-stat-type="fg" onClick="fetchChartData(event)">
+      <td>FGM</td>
+      <td> <%= stat_set.fgm %></td>
+    </tr>
+    <tr class="point" data-stat-type="fg" onClick="fetchChartData(event)">
+      <td>FGA</td>
+      <td><%= stat_set.fga %></td>
+    </tr>
+    <tr>
+      <td>FG%</td>
+      <td><%= stat_set.fg_pct %></td>
+    </tr>
+    <tr class="point" data-stat-type="3pt" onClick="fetchChartData(event)">
+      <td>3PTM</td>
+      <td><%= stat_set.fg3m %></td>
+    </tr>
+    <tr class="point" data-stat-type="3pt" onClick="fetchChartData(event)">
+      <td>3PT FGA</td>
+      <td><%= stat_set.fg3a %></td>
+    </tr>
+    <tr>
+      <td>3PT FG%</td>
+      <td><%= stat_set.fg3_pct%></td>
+    </tr>
+    <tr class="point" data-stat-type="ft" onClick="fetchChartData(event)">
+      <td>FTM</td>
+      <td><%= stat_set.ftm %></td>
+    </tr>
+    <tr class="point" data-stat-type="ft" onClick="fetchChartData(event)">
+      <td>FTA</td>
+      <td><%= stat_set.fta %></td>
+    </tr>
+    <tr>
+      <td>FT%</td>
+      <td><%= stat_set.ft_pct %></td>
+    </tr>
+    <tr class="point" data-stat-type="reb" onClick="fetchChartData(event)">
+      <td>OREB</td>
+      <td><%= stat_set.oreb %></td>
+    </tr>
+    <tr class="point" data-stat-type="reb" onClick="fetchChartData(event)">
+      <td>DREB</td>
+      <td><%= stat_set.dreb %></td>
+    </tr>
+    <tr class="point" data-stat-type="reb" onClick="fetchChartData(event)">
+      <td>REB</td>
+      <td><%= stat_set.reb %></td>
+    </tr>
+    <tr class="point" data-stat-type="ast" onClick="fetchChartData(event)">
+      <td>AST</td>
+      <td><%= stat_set.ast %></td>
+    </tr>
+    <tr class="point" data-stat-type="ast" onClick="fetchChartData(event)">
+      <td>TOV</td>
+      <td><%= stat_set.tov %></td>
+    </tr>
+    <tr class="point" data-stat-type="stl" onClick="fetchChartData(event)">
+      <td>STL</td>
+      <td><%= stat_set.stl %></td>
+    </tr>
+    <tr class="point" data-stat-type="stl" onClick="fetchChartData(event)">
+      <td>BLK</td>
+      <td><%= stat_set.blk %></td>
+    </tr>
+    <tr>
+      <td>BLKA</td>
+      <td><%= stat_set.blka %></td>
+    </tr>
+    <tr class="point" data-stat-type="stl" onClick="fetchChartData(event)">
+      <td>PF</td>
+      <td><%= stat_set.pf %></td>
+    </tr>
+    <tr>
+      <td>PFD</td>
+      <td><%= stat_set.pfd %></td>
+    </tr>
+    <tr>
+      <td>PPG</td>
+      <td><%= stat_set.pts %></td>
+    </tr>
+    <tr>
+      <td>+/-</td>
+      <td><%= stat_set.plus_minus %></td>
+    </tr>
+    <tr class="point" data-stat-type="stl" onClick="fetchChartData(event)">
+      <td>DAR*</td>
+      <td><%= stat_set.dar %>
+    </tr>
+  </table>
+</div>
+
+<div id="stat-set-holder" data-id="<%= stat_set.id %>"></div>
+<div id="player-holder" data-id="<%= player.id %>"></div>

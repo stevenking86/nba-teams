@@ -1,0 +1,19 @@
+<div>
+  <div>
+    <h4>Stat Sets</h4>
+  </div>
+
+  <div>
+    <% player.stat_sets.order(:id).each do |set| %>
+      <% selected = set.id == stat_set.id ? 'set-selected' : '' %>
+      <p
+        onClick="FetchStatSet(event)"
+        data-team-id="<%= player.team.id %>"
+        data-player-id="<%= player.id %>"
+        data-stat-set-id="<%= set.id %>"
+        class="<% selected %>">
+          <%= set.group_value %>
+      </p>
+    <% end %>
+  </div>
+</div>

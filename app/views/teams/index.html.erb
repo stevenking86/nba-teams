@@ -1,0 +1,48 @@
+<div id="headline">
+  <h1>
+    Who's H<span><%= image_tag ("ball-icon.png") %></span><%= image_tag ("ball-icon.png") %><span></span>ping?
+  </h1>
+</div>
+
+<div id="main">
+  <div id="teams-selection">
+    <% @teams.each_slice(6).to_a.each do |chunked| %>
+      <div class='chunked'>
+        <% chunked.each do |team| %>
+          <% selected = team[1] == @team.try(:id) ? 'selected' : '' %>
+          <p onClick="FetchTeam(event)" data-id="<%= team[1] %>" class="<%= selected %>">&#9632; <%= team[0] %></p>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div id='team-section' class="grid-x grid-margin-x">
+    <% if @team.present? %>
+      <%= render partial: 'team',
+        locals: {
+          team: @team,
+          player: @player,
+          stat_set: @stat_set
+        }
+      %>
+    <% else %>
+      <h4> Select a Team </h4>
+    <% end %>
+  </div>
+</div>
+
+<script>
+  function FetchTeam(e) {
+    var teamId = e.target.dataset.id
+    $.ajax({
+        url: `${document.URL}?click=1&team_id=${teamId}&load_team=1`,
+        cache: false,
+        success: function(html){
+          $('#team-section').replaceWith("<div id='team-section'>" + html + "</div>")
+        }
+    });
+
+    $(".selected").attr('class', '');
+    $(e.target).attr('class', 'selected');
+  }
+</script>
