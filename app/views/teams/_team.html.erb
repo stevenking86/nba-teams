@@ -41,7 +41,7 @@
     <% end %>
   </div>
 
-  <div id="click-a-stat"><h4>Click a Bold Stat</h4></div>
+  <div id="click-a-stat" class="cell medium-2 large-2 small-10"><h4>Click a Bold Stat</h4></div>
   <div id="container" class="cell medium-5 large-5 small-10" style="height: 400px; margin: 0 auto; display: inline-block"></div>
 
   <div id="dar-explain" class="cell medium-12 large-12 small-10">
@@ -73,7 +73,6 @@
             $('#click-a-stat').hide();
             $('#dar-explain').hide();
             $('#container').hide();
-            $('#click-a-stat').hide();
           }
       });
 
@@ -94,17 +93,18 @@
               "<div id='stat-set-section' class='cell medium-5 large-2'>" + html + "</div>"
             )
 
+            $('#click-a-stat').show();
             $('#dar-explain').show();
             $('#container').hide();
           }
       });
 
       $(".set-selected").attr('class', '');
-      $('#click-a-stat').hide();
       $(e.target).attr('class', 'set-selected');
     }
 
     function fetchChartData(e) {
+      $('#click-a-stat').hide();
       var playerId = $("#player-holder").data("id")
       var statSetId = $("#stat-set-holder").data("id")
       var targetTr = e.target.closest("tr")
