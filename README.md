@@ -11,6 +11,7 @@ This app is built using Ruby on Rails (backend) + HTML + CSS( w/ Foundation) + J
 ## To run locally
 - Ensure you have Rails and Postgres downloaded locally.
 - Create a postgres db locally called nba_teams_development
+- Run `bundle exec rake db:migrate`
 - Run `bundle exec rake seed:teams`
 - Run `bundle exec rake seed:players`
 - Run `rails s`
